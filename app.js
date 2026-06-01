@@ -139,24 +139,24 @@ function formatForPreview(bggCode) {
     html = html.replace(/\[color=([^\]]+)\]/g, '<span style="color:$1">').replace(/\[\/color\]/g, "</span>");
 
     // Process [url=...]...[/url]
-    html = html.replace(/\[url=([^\]]+)\]([^\[]+)\[\/url\]/g, '<a href="$1" target="_blank" style="color:#e94560">$2</a>');
+    html = html.replace(/\[url=([^\]]+)\]([^\[]+)\[\/url\]/g, '<a href="$1" target="_blank" class="preview-link">$2</a>');
 
     // Process [geeklist=...]...[/geeklist] — handle both numeric IDs and placeholder text like "xxxx"
     html = html.replace(/\[geeklist=([^\]]+)\]([^\[]*)\[\/geeklist\]/g, function(match, id, label) {
         const displayLabel = label || 'Geeklist ' + id;
-        return '<a href="https://boardgamegeek.com/geeklist/' + id + '" target="_blank" style="color:#e94560">' + displayLabel + '</a>';
+        return '<a href="https://boardgamegeek.com/geeklist/' + id + '" target="_blank" class="preview-link">' + displayLabel + '</a>';
     });
 
     // Process [thread=...]...[/thread]
     html = html.replace(/\[thread=([^\]]+)\]([^\[]*)\[\/thread\]/g, function(match, id, label) {
         const displayLabel = label || 'Thread ' + id;
-        return '<a href="https://boardgamegeek.com/thread/' + id + '" target="_blank" style="color:#e94560">' + displayLabel + '</a>';
+        return '<a href="https://boardgamegeek.com/thread/' + id + '" target="_blank" class="preview-link">' + displayLabel + '</a>';
     });
 
     // Process [uforum=...]...[/uforum]
     html = html.replace(/\[uforum=([^\]]+)\]([^\[]*)\[\/uforum\]/g, function(match, id, label) {
         const displayLabel = label || 'Forum ' + id;
-        return '<a href="https://boardgamegeek.com/forum/' + id + '" target="_blank" style="color:#e94560">' + displayLabel + '</a>';
+        return '<a href="https://boardgamegeek.com/forum/' + id + '" target="_blank" class="preview-link">' + displayLabel + '</a>';
     });
 
     // Handle line breaks

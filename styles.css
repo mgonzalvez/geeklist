@@ -41,6 +41,14 @@ body.light {
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+body.light .preview-link {
+    color: #1a5fb4;
+}
+
+body.light .preview-link:hover {
+    color: #2a7dc9;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -350,6 +358,16 @@ main {
 .btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+}
+
+/* Preview link styles — visible in both dark and light modes */
+.preview-link {
+    color: #7ecfff;
+    text-decoration: underline;
+}
+
+.preview-link:hover {
+    color: #a8d8ff;
 }
 
 .validation-error {
