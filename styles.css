@@ -95,11 +95,44 @@ nav {
     border-radius: var(--radius);
     transition: var(--transition);
     font-weight: 500;
+    position: relative;
 }
 
 .nav-link:hover {
     color: var(--gold);
     background: rgba(245, 197, 24, 0.1);
+}
+
+.nav-link[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    white-space: normal;
+    width: max-content;
+    max-width: 300px;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    pointer-events: none;
+}
+
+.nav-link[data-tooltip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 3px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--border);
+    pointer-events: none;
 }
 
 /* ===========================
@@ -262,6 +295,56 @@ main {
 .theme-toggle:hover {
     border-color: var(--gold);
     color: var(--gold);
+}
+
+/* Help Icon Tooltips */
+.help-icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--text-muted);
+    color: var(--bg-primary);
+    font-size: 9px;
+    font-weight: 700;
+    cursor: help;
+    margin-left: 4px;
+    position: relative;
+    top: -1px;
+}
+
+.help-icon:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    white-space: normal;
+    width: max-content;
+    max-width: 260px;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    pointer-events: none;
+}
+
+.help-icon:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--border);
+    pointer-events: none;
 }
 
 .btn:disabled {

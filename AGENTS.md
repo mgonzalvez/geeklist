@@ -32,8 +32,8 @@ pnp_geeklist/
 
 ## Key Functions in app.js
 
-- `generateHeader(data)` — Builds the full BGG header text from form data
-- `collectFormData()` — Reads all form fields
+- `generateHeader(data)` — Builds the full BGG header text from form data; year/lastYear derived from `new Date().getFullYear()`
+- `collectFormData()` — Reads all form fields; year/lastYear auto-set from `new Date().getFullYear()`
 - `renderOutput(data)` — Displays raw code and formatted preview
 - `formatForPreview(bggCode)` — Converts BGG tags to HTML for preview
 - `validateForm()` — Checks all fields, enables/disables export button
@@ -42,6 +42,20 @@ pnp_geeklist/
 ## Guest Host Data
 
 The `GUEST_HOSTS` array in `app.js` contains all 12 months for 2026. Update it when hosts change.
+
+## Form Fields (all required)
+
+| Field | Description |
+|---|---|
+| Month | Select the current month |
+| Theme | This month's theme title |
+| Theme Description | 2-3 sentence italicized explanation of the theme |
+| PnP Games On Your Table Geeklist ID | Geeklist ID for this month's playing geeklist (label auto-generated as "PnP Games on Your Table Month Year") |
+| Last Month | Previous month |
+| Entry Count | Number of entries last month contributed |
+| Last Month's Crafting Geeklist ID | Geeklist ID of last month's crafting geeklist |
+
+Note: Year and Last Year are auto-derived from `new Date().getFullYear()` — no user input needed.
 
 ## Static Content
 
@@ -67,6 +81,13 @@ To update static content, edit the `lines` array in `generateHeader()` in `app.j
 | Geeklist | `[geeklist=ID]Label[/geeklist]` | `[geeklist=123456]PnP Games on Your Table June 2026[/geeklist]` |
 | Thread | `[thread=ID]Label[/thread]` | `[thread=482943]Thread[/thread]` |
 | Forum | `[uforum=ID]Label[/uforum]` | `[uforum=974620]Forum[/uforum]` |
+
+## UI Features
+
+- **Dark/light mode toggle** — persisted in `localStorage`, defaults to light
+- **Help tooltips** — ℹ icons on required field labels with hover explanations
+- **Nav link tooltips** — hover explanations for Header Generator, How-To, Guest Hosts, and Guest Host Resources
+- **Form validation** — export button disabled until all fields are filled; red highlighting on invalid fields
 
 ## Editing the Template
 

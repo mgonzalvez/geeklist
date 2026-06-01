@@ -28,11 +28,11 @@ const BGG_COLOR_HEX2 = "#e0b61f";
 
 function generateHeader(data) {
     const month = data.month || "xxxx";
-    const year = data.year || "xxxx";
+    const year = data.year || new Date().getFullYear();
     const theme = data.theme || "(insert theme here)";
     const pnpGamesId = data.pnpGamesOnYourTableId ? `[geeklist=${data.pnpGamesOnYourTableId}][/geeklist]` : "[geeklist=xxxxxx][/geeklist]";
     const lastMonth = data.lastMonth || "xxxx";
-    const lastYear = data.lastYear || "xxxx";
+    const lastYear = data.lastYear || new Date().getFullYear();
     const entryCount = data.entryCount !== null && data.entryCount !== undefined ? data.entryCount : "xx";
     const lastCraftingId = data.lastCraftingGeeklistId ? `[geeklist=${data.lastCraftingGeeklistId}]Link to last month's PnP geeklist[/geeklist]` : "[geeklist=xxxx]Link to last month's PnP geeklist[/geeklist]";
 
@@ -93,12 +93,12 @@ function generateHeader(data) {
 function collectFormData() {
     return {
         month: document.getElementById("month").value,
-        year: document.getElementById("year").value,
+        year: new Date().getFullYear(),
         theme: document.getElementById("theme").value,
         themeDescription: document.getElementById("themeDescription").value,
         pnpGamesOnYourTableId: document.getElementById("pnpGamesOnYourTableId").value,
         lastMonth: document.getElementById("lastMonth").value,
-        lastYear: document.getElementById("lastYear").value,
+        lastYear: new Date().getFullYear(),
         entryCount: document.getElementById("entryCount").value,
         lastCraftingGeeklistId: document.getElementById("lastCraftingGeeklistId").value,
     };
@@ -253,12 +253,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function validateForm() {
         const fields = [
             { id: "month", label: "Month" },
-            { id: "year", label: "Year" },
             { id: "theme", label: "Theme" },
             { id: "themeDescription", label: "Theme Description" },
             { id: "pnpGamesOnYourTableId", label: "PnP Games On Your Table Geeklist ID" },
             { id: "lastMonth", label: "Last Month" },
-            { id: "lastYear", label: "Last Year" },
             { id: "entryCount", label: "Entry Count" },
             { id: "lastCraftingGeeklistId", label: "Last Month's Crafting Geeklist ID" },
         ];

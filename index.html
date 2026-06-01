@@ -11,9 +11,10 @@
         <h1>🎲 PnP Crafting Geeklist Generator</h1>
         <p>Tools for guest hosts of the Print &amp; Play Crafting Geeklist on BoardGameGeek</p>
         <nav>
-            <a href="#generator" class="nav-link">Header Generator</a>
-            <a href="#instructions" class="nav-link">How-To Instructions</a>
-            <a href="#guest-hosts" class="nav-link">Guest Hosts</a>
+            <a href="#generator" class="nav-link" data-tooltip="Fill in the required fields to easily generate the header text and code for the upcoming crafting geeklist.">Header Generator</a>
+            <a href="#instructions" class="nav-link" data-tooltip="Instructions for how to create the upcoming crafting geeklist.">How-To Instructions</a>
+            <a href="#guest-hosts" class="nav-link" data-tooltip="Past and current guest host lineup for the crafting geeklist, including slots that are not yet filled.">Guest Hosts</a>
+            <a href="https://drive.google.com/drive/folders/1tzoOxSy3iXlQ0aCtOVkd83fI8uu0ClKn?usp=drive_link" class="nav-link" target="_blank" data-tooltip="Geeklist header template and geeklist creation instructions in plain text files.">Guest Host Resources</a>
             <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark mode">🌙</button>
         </nav>
     </header>
@@ -27,7 +28,7 @@
             <form id="headerForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="month">Month *</label>
+                        <label for="month">Month * <span class="help-icon" data-tooltip="Select the current month.">ℹ</span></label>
                         <select id="month" required>
                             <option value="">— Select Month —</option>
                             <option value="January">January</option>
@@ -45,13 +46,8 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="year">Year *</label>
-                        <input type="number" id="year" value="2026" min="2024" max="2035" required>
-                    </div>
-
                     <div class="form-group full-width">
-                        <label for="theme">This Month's Theme *</label>
+                        <label for="theme">This Month's Theme * <span class="help-icon" data-tooltip="Type your preferred theme for this month's crafting geeklist.">ℹ</span></label>
                         <input type="text" id="theme" placeholder="e.g. Planes, Trains, and Automobiles" required>
                     </div>
 
@@ -61,13 +57,13 @@
                     </div>
 
                     <div class="form-group full-width">
-                        <label for="pnpGamesOnYourTableId">PnP Games On Your Table Geeklist ID *</label>
+                        <label for="pnpGamesOnYourTableId">PnP Games On Your Table Geeklist ID * <span class="help-icon" data-tooltip="Type the ID of the current month's 'PnP Games on Your Table' geeklist.">ℹ</span></label>
                         <input type="number" id="pnpGamesOnYourTableId" placeholder="e.g. 123456" required>
                         <small>Geeklist ID of this month's "PnP Games On Your Table" geeklist</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="lastMonth">Last Month *</label>
+                        <label for="lastMonth">Last Month * <span class="help-icon" data-tooltip="Select the month of the previous crafting geeklist.">ℹ</span></label>
                         <select id="lastMonth" required>
                             <option value="">— Select Month —</option>
                             <option value="January">January</option>
@@ -86,17 +82,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="lastYear">Last Year *</label>
-                        <input type="number" id="lastYear" value="2026" min="2024" max="2035" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="entryCount">Last Month's Entry Count *</label>
+                        <label for="entryCount">Last Month's Entry Count * <span class="help-icon" data-tooltip="How many entries were contributed in last month's crafting geeklist?">ℹ</span></label>
                         <input type="number" id="entryCount" placeholder="e.g. 42" min="0" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="lastCraftingGeeklistId">Last Month's Crafting Geeklist ID *</label>
+                        <label for="lastCraftingGeeklistId">Last Month's Crafting Geeklist ID * <span class="help-icon" data-tooltip="Type the ID of last month's crafting geeklist.">ℹ</span></label>
                         <input type="number" id="lastCraftingGeeklistId" placeholder="e.g. 123455" required>
                     </div>
                 </div>

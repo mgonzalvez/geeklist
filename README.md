@@ -29,14 +29,14 @@ This tool helps monthly guest hosts generate the BGG-formatted header text for e
 | Field | Description |
 |---|---|
 | Month | Current month |
-| Year | Current year |
 | Theme | This month's theme title |
 | Theme Description | 2-3 sentence italicized explanation of the theme |
 | PnP Games On Your Table Geeklist ID | Geeklist ID for this month's playing geeklist (label auto-generated as "PnP Games on Your Table Month Year") |
 | Last Month | Previous month |
-| Last Year | Previous year |
 | Entry Count | Number of entries last month contributed |
 | Last Month's Crafting Geeklist ID | Geeklist ID of last month's crafting geeklist |
+
+Note: Year and Last Year are auto-derived from `new Date().getFullYear()` — no user input needed.
 
 ## Static Content (hardcoded from template)
 
