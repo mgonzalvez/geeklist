@@ -228,6 +228,24 @@ function renderGuestHosts() {
 // ===========================
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("theme");
+    const isLight = savedTheme === "light";
+    if (isLight) {
+        document.body.classList.add("light");
+        themeToggle.textContent = "☀️";
+    } else {
+        themeToggle.textContent = "🌙";
+    }
+
+    themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const nowLight = document.body.classList.contains("light");
+        themeToggle.textContent = nowLight ? "☀️" : "🌙";
+        localStorage.setItem("theme", nowLight ? "light" : "dark");
+    });
+
     const form = document.getElementById("headerForm");
     const exportBtn = document.getElementById("exportBtn");
     const validationError = document.getElementById("validationError");
