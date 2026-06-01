@@ -1,0 +1,41 @@
+[b][size=18]Welcome to the print and play crafting geeklist for [color=#ffdd00][color=#e0b61f][size=24]xxxx 2026[/size][/color][/color]![/size][/b]. 
+
+[size=18]This month's theme: (insert theme here) [/size]
+
+[size=18][b]Playing PnP games? Share your gameplays on [geeklist=xxxxxx][/geeklist].[/b][/size]
+========================================
+:chalice:[b]Print and play game design contests ongoing right now: [/b] [uforum=974620]Design contests[/uforum]
+:arrowE:Check out the contest [uforum=1530033]WIP threads[/uforum] to provide support, proofread rulebooks, and playtest the PnP game classics of the future.
+========================================
+[b]Last month (xxxx 2026), we contributed xx entries to this crafting geeklist. How many PnP projects will you craft this month?[/b]
+:d6-1: [geeklist=xxxx]Link to last month's PnP geeklist[/geeklist]
+:d6-2: [thread=482943]Link to the subscription thread[/thread]
+:d6-3: [url=https://boardgamegeek.com/geeklists?domain=boardgame&userid=3545&page=1]Archive of PnP geeklists from June 2010 to October 2020[/url]
+========================================
+[b]Places to discover and get PnP games:[/b]
+:arrowE: [url=https://www.pnpfinder.com/]PnPFinder.com[/url]
+:arrowE: [url=https://launchpad.gonzhome.us/]PnP Launchpad[/url]
+:arrowE: [url=https://buttonshygames.itch.io/]Buttonshy Games on itch.io[/url]
+:arrowE: [url=https://www.thegamecrafter.com/designers/button-shy-games-s-games/]Buttonshy Games on The Gamecrafter[/url]
+:arrowE: [url=https://pnparcade.substack.com/]PnPArcade Substack[/url]
+:arrowE: [geeklist=149598]Kickstarters with PnP versions available (& other crowdfunding)[/geeklist]
+:arrowE: [geeklist=248640]Sites to Download Games (PnP)[/geeklist]
+:arrowE: [geeklist=256760]Project SHRINKO! Tiny versions of big BIG games[/geeklist]
+:arrowE: [geeklist=229881]PnP cousins of commercial games[/geeklist]
+:arrowE: [geeklist=1567]Games That Are Free To Print and Play[/geeklist]
+========================================
+[b]PnP prototyping, file layout, and formatting tools:[/b]
+:arrowE: Free, high quality, easy to use web app to output properly formatted PnP files: [url=https://formatter.gonzhome.us/]Martin's Card Formatter[/url]
+:arrowE: Extract individual card images from existing PnP PDF files: [url=https://extractor.gonzhome.us/]Martin's Card Extractor[/url]
+:arrowE: Lay out PnP files and fix front-back alignment: [url=http://www.pnpbuddy.com]PnPBuddy.com[/url]
+:arrowE: Windows-based PnP formatting tool: [thread=2490834]PnP Tool[/thread]
+:arrowE: Convert PnP traditional grid format to gutterfold: [url=https://foosel.github.io/cardfoldr]CardFoldr[/url]
+:arrowE: Make quick and dirty prototypes of cards for your PnP game designs: [url=https://prototyper.gonzhome.us/]Martin's Card Prototyper[/url]
+:arrowE: Freemium web app to prototype PnP games using spreadsheets: [url=https://www.dextrous.com.au/]Dextrous[/url]
+:arrowE: Mac-based PnP prototyping tool: [url=https://www.semicolon.com/multideck/multideck.html]Multideck[/url]
+:arrowE: Powerful, flexible scripting tool for rapid card protopying: [url=https://nandeck.com/]Nandeck[/url]
+[b]:geek_star: Comprehensive directory of PnP tools and resources: [url=https://pnptools.gonzhome.us/]PnP Tools[/url][/b]
+========================================
+[b]Engage with the PnP community online:[/b][b][b][/b][/b]
+:d10-1: Reddit:  [url=https://www.reddit.com/r/printandplay/]r/printandplay Subreddit[/url]
+:d10-2: Facebook: [url=http://www.facebook.com/groups/pnphideaway/]Print and Play Hideaway[/url]

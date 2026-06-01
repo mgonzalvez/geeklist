@@ -1,0 +1,29 @@
+How to create and publish a new crafting geeklist
+Updated May 2026 by @DrHenryArmitage
+
+1. Create a new geeklist (Geeklists > Create new).
+
+2. Use the template in the file Crafting_Geeklist_Header_Text_updated_2026.txt as a basis for the new geeklist header.
+
+3. The following items are placeholders (denoted by "xxxx"), replace these with the actual information:
+
+3a. Line 1: "Welcome to the print and play crafting geeklist for xxxx 2026." (insert current month)
+3b. Line 3: "This month's theme: (insert theme here)" (insert current month's theme and explanatory text)
+3b. Line 5: "Playing PnP games? Share your gameplays on [geeklist=xxxxxx][/geeklist]." (insert geeklist ID of this month's "PnP playing" geeklist)
+3c. Line 10: "Last month (xxxx 2026), we contributed xx entries to this crafting geeklist." (insert previous month and number of entries)
+3d. Line 11: "[geeklist=xxxx]Link to last month's PnP geeklist[/geeklist]" (insert geeklist ID of last month's "PnP crafting" geeklist)
+
+4. Once done customizing the header, click "Continue to add items" (you don't need to add any items), then click "Publish".
+
+5. Copy the new geeklist ID.
+
+6. Add a reply to the subscription thread (https://boardgamegeek.com/thread/482943/monthly-print-n-play-tally-list-subscription-threa) announcing that the current month's list is live.
+
+7. Add a list comment to last month's crafting geeklist announcing the current month's list.
+
+8. Add a list comment to the current "PnP playing" geeklist announcing the current month's list.
+
+Questions? Comments? Send geekmail to @DrHenryArmitage.
+
+
+
