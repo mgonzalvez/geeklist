@@ -3,7 +3,7 @@ Updated May 2026 by @DrHenryArmitage
 
 1. Create a new geeklist (Geeklists > Create new).
 
-2. Use the template in the file Crafting_Geeklist_Header_Text_updated_2026.txt as a basis for the new geeklist header.
+2. Use the template in the file Crafting_Geeklist_Header_Text_Template_updated_2026.txt as a basis for the new geeklist header.
 
 3. The following items are placeholders (denoted by "xxxx"), replace these with the actual information:
 
