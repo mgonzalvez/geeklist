@@ -13,7 +13,7 @@ const GUEST_HOSTS = [
     { month: "June",      year: 2026, user: "DrHenryArmitage", theme: "Summer Fun" },
     { month: "July",      year: 2026, user: "ecoboardgeek123", theme: "Rethemes" },
     { month: "August",    year: 2026, user: "Gamecreature", theme: "Over The Top!" },
-    { month: "September", year: 2026, user: null,          theme: null },
+    { month: "September", year: 2026, user: "Stwert",      theme: "TBD" },
     { month: "October",   year: 2026, user: "ecoboardgeek123", theme: "Artwork" },
     { month: "November",  year: 2026, user: "DaddyDosDeuce", theme: "Culture and History" },
     { month: "December",  year: 2026, user: "jamierufe",   theme: "TBD" },
