@@ -16,7 +16,7 @@ const GUEST_HOSTS = [
     { month: "September", year: 2026, user: null,          theme: null },
     { month: "October",   year: 2026, user: "ecoboardgeek123", theme: "Artwork" },
     { month: "November",  year: 2026, user: "DaddyDosDeuce", theme: "Culture and History" },
-    { month: "December",  year: 2026, user: null,          theme: null },
+    { month: "December",  year: 2026, user: "jamierufe",   theme: "TBD" },
 ];
 
 const BGG_COLOR_HEX = "#ffdd00";
