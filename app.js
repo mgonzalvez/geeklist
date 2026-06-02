@@ -221,6 +221,12 @@ function renderGuestHosts() {
 
         grid.appendChild(card);
     });
+
+    // Hide the "Still Looking For Hosts" section if no missing slots
+    const missingHostsSection = document.querySelector(".missing-hosts");
+    if (missingHostsSection) {
+        missingHostsSection.classList.toggle("hidden", missingList.children.length === 0);
+    }
 }
 
 // ===========================
