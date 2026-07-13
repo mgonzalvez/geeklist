@@ -70,6 +70,7 @@ function generateHeader(data) {
     lines.push(":arrowE: [geeklist=256760]Project SHRINKO! Tiny versions of big BIG games[/geeklist]");
     lines.push(":arrowE: [geeklist=229881]PnP cousins of commercial games[/geeklist]");
     lines.push(":arrowE: [geeklist=1567]Games That Are Free To Print and Play[/geeklist]");
+    lines.push(":arrowE: [geeklist=381202]PNP Retheme/Redraw Master List[/geeklist]");
     lines.push("========================================");
     lines.push("[b]PnP prototyping, file layout, and formatting tools:[/b]");
     lines.push(":arrowE: Free, high quality, easy to use web app to output properly formatted PnP files: [url=https://formatter.gonzhome.us/]Martin's Card Formatter[/url]");
