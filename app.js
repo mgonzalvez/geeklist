@@ -189,7 +189,9 @@ function formatForPreview(bggCode) {
 
 function switchTab(tabName) {
     document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.tab === tabName);
+        const isActive = btn.dataset.tab === tabName;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
     });
     document.getElementById("rawOutput").classList.toggle("hidden", tabName !== "raw");
     document.getElementById("formattedOutput").classList.toggle("hidden", tabName !== "formatted");
@@ -214,16 +216,16 @@ function renderGuestHosts() {
             card.innerHTML = `
                 <span class="status-badge">✓ Filled</span>
                 <div class="month-year">${host.month} ${host.year}</div>
-                <div class="host-name">User: ${host.user}</div>
-                <div class="host-theme">Theme: ${host.theme}</div>
+                <div class="host-name">Hosted by <a href="https://boardgamegeek.com/user/${encodeURIComponent(host.user)}" target="_blank" rel="noopener noreferrer">@${host.user}</a></div>
+                <div class="host-theme"><span>Theme</span>${host.theme}</div>
             `;
         } else if (host.user) {
             card.classList.add("pending");
             card.innerHTML = `
                 <span class="status-badge">⏳ Pending</span>
                 <div class="month-year">${host.month} ${host.year}</div>
-                <div class="host-name">User: ${host.user}</div>
-                <div class="host-theme">Theme: TBD</div>
+                <div class="host-name">Hosted by <a href="https://boardgamegeek.com/user/${encodeURIComponent(host.user)}" target="_blank" rel="noopener noreferrer">@${host.user}</a></div>
+                <div class="host-theme"><span>Theme</span>TBD</div>
             `;
         } else {
             card.classList.add("empty");
@@ -231,7 +233,7 @@ function renderGuestHosts() {
                 <span class="status-badge">Empty</span>
                 <div class="month-year">${host.month} ${host.year}</div>
                 <div class="host-name">No host assigned</div>
-                <div class="host-theme">Theme: TBD</div>
+                <div class="host-theme"><span>Theme</span>TBD</div>
             `;
             const li = document.createElement("li");
             li.textContent = `${host.month} ${host.year}`;
@@ -255,59 +257,110 @@ function renderGuestHosts() {
 document.addEventListener("DOMContentLoaded", () => {
     // Theme toggle
     const themeToggle = document.getElementById("themeToggle");
-    const savedTheme = localStorage.getItem("theme");
-    const isLight = savedTheme === "light";
-    if (isLight) {
-        document.body.classList.add("light");
-        themeToggle.textContent = "☀️";
-    } else {
-        themeToggle.textContent = "🌙";
+    const themeColorMeta = document.getElementById("themeColorMeta");
+
+    function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        themeToggle.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} appearance`);
+        themeToggle.title = `Switch to ${theme === "dark" ? "light" : "dark"} appearance`;
+        if (themeColorMeta) {
+            themeColorMeta.content = theme === "dark" ? "#090b10" : "#f4f7fb";
+        }
     }
 
+    applyTheme(document.documentElement.dataset.theme || "light");
+
     themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("light");
-        const nowLight = document.body.classList.contains("light");
-        themeToggle.textContent = nowLight ? "☀️" : "🌙";
-        localStorage.setItem("theme", nowLight ? "light" : "dark");
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(nextTheme);
+        try {
+            localStorage.setItem("pnpfinder-theme", nextTheme);
+            localStorage.removeItem("theme");
+        } catch (error) {
+            // Theme switching still works when storage is unavailable.
+        }
     });
+
+    const relatedSitesMenu = document.querySelector(".related-sites-menu");
+    document.addEventListener("click", (event) => {
+        if (relatedSitesMenu?.open && !relatedSitesMenu.contains(event.target)) {
+            relatedSitesMenu.removeAttribute("open");
+        }
+    });
+
+    const sectionLinks = [...document.querySelectorAll('.page-nav a[href^="#"]')];
+    const setActiveSection = (sectionId) => {
+        sectionLinks.forEach(link => {
+            const isActive = link.getAttribute("href") === `#${sectionId}`;
+            link.classList.toggle("active", isActive);
+            if (isActive) {
+                link.setAttribute("aria-current", "location");
+            } else {
+                link.removeAttribute("aria-current");
+            }
+        });
+    };
+
+    sectionLinks.forEach(link => {
+        link.addEventListener("click", () => setActiveSection(link.getAttribute("href").slice(1)));
+    });
+
+    if ("IntersectionObserver" in window) {
+        const sectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) setActiveSection(entry.target.id);
+            });
+        }, { rootMargin: "-25% 0px -60% 0px" });
+
+        sectionLinks.forEach(link => {
+            const section = document.querySelector(link.getAttribute("href"));
+            if (section) sectionObserver.observe(section);
+        });
+    }
 
     const form = document.getElementById("headerForm");
     const exportBtn = document.getElementById("exportBtn");
     const validationError = document.getElementById("validationError");
+    const formProgressCount = document.getElementById("formProgressCount");
+    const formProgressBar = document.getElementById("formProgressBar");
+    const fields = [
+        { id: "month", label: "Month" },
+        { id: "theme", label: "Theme" },
+        { id: "themeDescription", label: "Theme Description" },
+        { id: "pnpGamesOnYourTableId", label: "PnP Games On Your Table Geeklist ID" },
+        { id: "lastMonth", label: "Last Month" },
+        { id: "entryCount", label: "Entry Count" },
+        { id: "lastCraftingGeeklistId", label: "Last Month's Crafting Geeklist ID" },
+    ];
+    let validationAttempted = false;
 
-    function validateForm() {
-        const fields = [
-            { id: "month", label: "Month" },
-            { id: "theme", label: "Theme" },
-            { id: "themeDescription", label: "Theme Description" },
-            { id: "pnpGamesOnYourTableId", label: "PnP Games On Your Table Geeklist ID" },
-            { id: "lastMonth", label: "Last Month" },
-            { id: "entryCount", label: "Entry Count" },
-            { id: "lastCraftingGeeklistId", label: "Last Month's Crafting Geeklist ID" },
-        ];
-
-        let valid = true;
-        let missing = [];
+    function validateForm(showErrors = validationAttempted) {
+        const missing = [];
+        let completed = 0;
 
         fields.forEach(f => {
             const el = document.getElementById(f.id);
             if (!el.value.trim()) {
-                valid = false;
                 missing.push(f.label);
-                el.classList.add("invalid");
+                el.classList.toggle("invalid", showErrors);
             } else {
+                completed += 1;
                 el.classList.remove("invalid");
             }
         });
 
-        if (!valid) {
+        const valid = missing.length === 0;
+        formProgressCount.textContent = `${completed} of ${fields.length}`;
+        formProgressBar.style.width = `${(completed / fields.length) * 100}%`;
+
+        if (!valid && showErrors) {
             validationError.textContent = "Please fill in all required fields: " + missing.join(", ");
             validationError.classList.remove("hidden");
-            exportBtn.disabled = true;
         } else {
             validationError.classList.add("hidden");
-            exportBtn.disabled = false;
         }
+        exportBtn.disabled = !valid;
 
         return valid;
     }
@@ -321,18 +374,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // Form submission
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        if (!validateForm()) return;
+        validationAttempted = true;
+        if (!validateForm(true)) return;
         const data = collectFormData();
         renderOutput(data);
     });
 
     // Preview button
     document.getElementById("previewBtn").addEventListener("click", () => {
-        if (!validateForm()) return;
+        validationAttempted = true;
+        if (!validateForm(true)) return;
         const data = collectFormData();
         renderOutput(data);
         // Switch to formatted tab
         switchTab("formatted");
+    });
+
+    form.addEventListener("reset", () => {
+        window.setTimeout(() => {
+            validationAttempted = false;
+            validateForm(false);
+            document.getElementById("outputSection").classList.add("hidden");
+        }, 0);
     });
 
     // Tab switching
@@ -344,10 +407,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("copyBtn").addEventListener("click", () => {
         const rawOutput = document.getElementById("rawOutput").textContent;
         navigator.clipboard.writeText(rawOutput).then(() => {
-            const btn = document.getElementById("copyBtn");
-            const original = btn.textContent;
-            btn.textContent = "✅ Copied!";
-            setTimeout(() => { btn.textContent = original; }, 2000);
+            const label = document.getElementById("copyBtnLabel");
+            label.textContent = "Copied!";
+            setTimeout(() => { label.textContent = "Copy code"; }, 2000);
         });
     });
 
@@ -369,4 +431,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Render guest hosts
     renderGuestHosts();
+    validateForm(false);
 });

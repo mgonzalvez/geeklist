@@ -9,6 +9,7 @@ A single-page web app for generating BGG-formatted header text for the Print & P
 ```
 pnp_geeklist/
 ├── .gitignore          # Local OS metadata exclusions
+├── favicon.svg         # Shared blue-violet app icon
 ├── index.html          # Main page (form, instructions, guest hosts)
 ├── styles.css          # Dark/light theme styling
 ├── app.js              # Form logic, header generation, preview, roster
@@ -89,9 +90,11 @@ To update static content, edit the `lines` array in `generateHeader()` in `app.j
 
 ## UI Features
 
-- **Dark/light mode toggle** — persisted in `localStorage`, defaults to dark
-- **Help tooltips** — ℹ icons on required field labels with hover explanations
-- **Nav link tooltips** — hover explanations for Header Generator, How-To, Guest Hosts, and Guest Host Resources
+- **Dark/light mode toggle** — uses the shared `pnpfinder-theme` key and otherwise follows the operating system
+- **Related Sites menu** — links to the broader PnP tool family
+- **Header readiness panel** — shows live completion progress for the seven required fields
+- **Help tooltips** — keyboard-accessible info icons explain required fields
+- **Section navigation** — highlights Header Generator, How-To, or Guest Hosts as the user moves through the page
 - **Form validation** — export button disabled until all fields are filled; red highlighting on invalid fields
 
 ## Editing the Template

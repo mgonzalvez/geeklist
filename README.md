@@ -14,13 +14,16 @@ This tool helps monthly guest hosts generate the BGG-formatted header text for e
 - **Download .txt** — Export the header as a text file
 - **How-To Instructions** — Step-by-step guide for creating and publishing a geeklist
 - **Guest Host Roster** — Full 2026 lineup showing filled, pending, and empty slots
-- **Dark/light themes** — Toggle the interface theme; the saved preference persists in the browser and defaults to dark
+- **Header Readiness** — Live progress shows how many required details are complete
+- **Dark/light themes** — Follows the system preference, persists across the related PnP sites, and can be toggled manually
+- **Related Sites** — Shared navigation to the other PnP tools
 
 ## Files
 
 | File | Description |
 |---|---|
 | `.gitignore` | Excludes local OS metadata |
+| `favicon.svg` | Blue-violet app icon used by the browser tab |
 | `index.html` | Main page structure with all three sections |
 | `styles.css` | Dark/light theme styling and responsive layout |
 | `app.js` | Form validation, header generation, preview rendering, guest host roster |
@@ -56,7 +59,7 @@ The following sections are generated from static content synchronized with the t
 ## Tech Stack
 
 - Vanilla HTML, CSS, JavaScript — no dependencies
-- Dark and light themes with gold accents
+- Shared PnP visual system with frosted surfaces and blue-violet accents
 - Fully responsive (mobile-friendly)
 - Client-side only — no server required
 
