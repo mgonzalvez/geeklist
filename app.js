@@ -30,7 +30,7 @@ function generateHeader(data) {
     const month = data.month || "xxxx";
     const year = data.year || new Date().getFullYear();
     const theme = data.theme || "(insert theme here)";
-    const pnpGamesId = data.pnpGamesOnYourTableId ? `[geeklist=${data.pnpGamesOnYourTableId}][/geeklist]` : "[geeklist=xxxxxx][/geeklist]";
+    const pnpGamesId = data.pnpGamesOnYourTableId || "xxxxxx";
     const lastMonth = data.lastMonth || "xxxx";
     const lastYear = data.lastYear || new Date().getFullYear();
     const entryCount = data.entryCount !== null && data.entryCount !== undefined ? data.entryCount : "xx";
@@ -47,9 +47,8 @@ function generateHeader(data) {
         lines.push(`[size=18]This month's theme: ${theme} [/size]`);
     }
 
-    lines.push("========================================");
-    const pnpGamesLabel = `${month} ${year}`;
-    lines.push(`[size=18][b]Playing PnP games? Share your gameplays on ${pnpGamesId}PnP Games on Your Table ${pnpGamesLabel}[/geeklist][/b][/size]`);
+    lines.push("");
+    lines.push(`[size=18][b]Playing PnP games? Share your gameplays on [geeklist=${pnpGamesId}][/geeklist].[/b][/size]`);
     lines.push("========================================");
     lines.push(":chalice:[b]Print and play game design contests ongoing right now: [/b] [uforum=974620]Design contests[/uforum]");
     lines.push(":arrowE:Check out the contest [uforum=1530033]WIP threads[/uforum] to provide support, proofread rulebooks, and playtest the PnP game classics of the future.");
@@ -83,6 +82,12 @@ function generateHeader(data) {
     lines.push(":arrowE: Mac-based PnP prototyping tool: [url=https://www.semicolon.com/multideck/multideck.html]Multideck[/url]");
     lines.push(":arrowE: Powerful, flexible scripting tool for rapid card protopying: [url=https://nandeck.com/]Nandeck[/url]");
     lines.push("[b]:geek_star: Comprehensive directory of PnP tools and resources: [url=https://pnptools.gonzhome.us/]PnP Tools[/url][/b]");
+    lines.push("========================================");
+    lines.push("[b]PnP Methods and Costs[/b]");
+    lines.push(":arrowE: [blogpost=133228][/blogpost]");
+    lines.push(":arrowE: [thread=3155948][/thread]");
+    lines.push(":arrowE: [geekurl=/wiki/page/Print_and_Play_Games][/geekurl]");
+    lines.push("[b]:geek_star: The proverbial rabbit hole if you haven't found what you were looking for yet [thread=848512][/thread][/b]");
     lines.push("========================================");
     lines.push("[b]Engage with the PnP community online:[/b][b][b][/b][/b]");
     lines.push(":d10-1: Reddit:  [url=https://www.reddit.com/r/printandplay/]r/printandplay Subreddit[/url]");
@@ -152,6 +157,19 @@ function formatForPreview(bggCode) {
     html = html.replace(/\[thread=([^\]]+)\]([^\[]*)\[\/thread\]/g, function(match, id, label) {
         const displayLabel = label || 'Thread ' + id;
         return '<a href="https://boardgamegeek.com/thread/' + id + '" target="_blank" class="preview-link">' + displayLabel + '</a>';
+    });
+
+    // Process [blogpost=...]...[/blogpost]
+    html = html.replace(/\[blogpost=([^\]]+)\]([^\[]*)\[\/blogpost\]/g, function(match, id, label) {
+        const displayLabel = label || 'Blog post ' + id;
+        return '<a href="https://boardgamegeek.com/blogpost/' + id + '" target="_blank" class="preview-link">' + displayLabel + '</a>';
+    });
+
+    // Process [geekurl=...]...[/geekurl]
+    html = html.replace(/\[geekurl=([^\]]+)\]([^\[]*)\[\/geekurl\]/g, function(match, path, label) {
+        const href = path.startsWith("http") ? path : "https://boardgamegeek.com" + (path.startsWith("/") ? path : "/" + path);
+        const displayLabel = label || path.split("/").filter(Boolean).pop().replace(/_/g, " ");
+        return '<a href="' + href + '" target="_blank" class="preview-link">' + displayLabel + '</a>';
     });
 
     // Process [uforum=...]...[/uforum]

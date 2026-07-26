@@ -8,8 +8,9 @@ A single-page web app for generating BGG-formatted header text for the Print & P
 
 ```
 pnp_geeklist/
+├── .gitignore          # Local OS metadata exclusions
 ├── index.html          # Main page (form, instructions, guest hosts)
-├── styles.css          # Dark theme styling
+├── styles.css          # Dark/light theme styling
 ├── app.js              # Form logic, header generation, preview, roster
 ├── README.md           # Project documentation
 ├── data/
@@ -25,10 +26,10 @@ pnp_geeklist/
 - `app.js` handles:
   - Form validation (all fields required, button disabled until valid)
   - Header generation from form data + hardcoded static content
-  - BGG tag → HTML conversion for preview (`[b]`, `[i]`, `[size]`, `[color]`, `[url]`, `[geeklist]`, `[thread]`, `[uforum]`)
+  - BGG tag → HTML conversion for preview (`[b]`, `[i]`, `[size]`, `[color]`, `[url]`, `[geeklist]`, `[thread]`, `[uforum]`, `[blogpost]`, `[geekurl]`)
   - Copy to clipboard and download .txt functionality
   - Guest host roster rendering from `GUEST_HOSTS` array
-- `styles.css` — dark theme, responsive grid, form validation states
+- `styles.css` — dark/light themes, responsive grid, form validation states
 
 ## Key Functions in app.js
 
@@ -50,7 +51,7 @@ The `GUEST_HOSTS` array in `app.js` contains all 12 months for 2026. Update it w
 | Month | Select the current month |
 | Theme | This month's theme title |
 | Theme Description | 2-3 sentence italicized explanation of the theme |
-| PnP Games On Your Table Geeklist ID | Geeklist ID for this month's playing geeklist (label auto-generated as "PnP Games on Your Table Month Year") |
+| PnP Games On Your Table Geeklist ID | Geeklist ID for this month's playing geeklist |
 | Last Month | Previous month |
 | Entry Count | Number of entries last month contributed |
 | Last Month's Crafting Geeklist ID | Geeklist ID of last month's crafting geeklist |
@@ -63,8 +64,10 @@ The following are hardcoded in `generateHeader()` and match the template file:
 - Contest forum IDs (974620, 1530033)
 - Subscription thread (482943)
 - Archive URL
-- "Playing PnP games?" line — label auto-generated from `month` and `year` variables as "PnP Games on Your Table Month Year"
-- All "PnP prototyping tools" links (10 items)
+- "Playing PnP games?" link
+- "Places to discover" links (5 external sites and 6 geeklists)
+- All "PnP prototyping tools" links (9 tools plus the PnP Tools directory)
+- "PnP Methods and Costs" links (`blogpost=133228`, `thread=3155948`, Print and Play Games wiki, `thread=848512`)
 - Community links (Reddit, Facebook)
 
 To update static content, edit the `lines` array in `generateHeader()` in `app.js`.
@@ -81,10 +84,12 @@ To update static content, edit the `lines` array in `generateHeader()` in `app.j
 | Geeklist | `[geeklist=ID]Label[/geeklist]` | `[geeklist=123456]PnP Games on Your Table June 2026[/geeklist]` |
 | Thread | `[thread=ID]Label[/thread]` | `[thread=482943]Thread[/thread]` |
 | Forum | `[uforum=ID]Label[/uforum]` | `[uforum=974620]Forum[/uforum]` |
+| Blog post | `[blogpost=ID]Label[/blogpost]` | `[blogpost=133228][/blogpost]` |
+| BGG-relative URL | `[geekurl=/path]Label[/geekurl]` | `[geekurl=/wiki/page/Print_and_Play_Games][/geekurl]` |
 
 ## UI Features
 
-- **Dark/light mode toggle** — persisted in `localStorage`, defaults to light
+- **Dark/light mode toggle** — persisted in `localStorage`, defaults to dark
 - **Help tooltips** — ℹ icons on required field labels with hover explanations
 - **Nav link tooltips** — hover explanations for Header Generator, How-To, Guest Hosts, and Guest Host Resources
 - **Form validation** — export button disabled until all fields are filled; red highlighting on invalid fields

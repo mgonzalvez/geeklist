@@ -23,6 +23,7 @@
 :arrowE: [geeklist=256760]Project SHRINKO! Tiny versions of big BIG games[/geeklist]
 :arrowE: [geeklist=229881]PnP cousins of commercial games[/geeklist]
 :arrowE: [geeklist=1567]Games That Are Free To Print and Play[/geeklist]
+:arrowE: [geeklist=381202]PNP Retheme/Redraw Master List[/geeklist]
 ========================================
 [b]PnP prototyping, file layout, and formatting tools:[/b]
 :arrowE: Free, high quality, easy to use web app to output properly formatted PnP files: [url=https://formatter.gonzhome.us/]Martin's Card Formatter[/url]
@@ -35,6 +36,12 @@
 :arrowE: Mac-based PnP prototyping tool: [url=https://www.semicolon.com/multideck/multideck.html]Multideck[/url]
 :arrowE: Powerful, flexible scripting tool for rapid card protopying: [url=https://nandeck.com/]Nandeck[/url]
 [b]:geek_star: Comprehensive directory of PnP tools and resources: [url=https://pnptools.gonzhome.us/]PnP Tools[/url][/b]
+========================================
+[b]PnP Methods and Costs[/b]
+:arrowE: [blogpost=133228][/blogpost]
+:arrowE: [thread=3155948][/thread]
+:arrowE: [geekurl=/wiki/page/Print_and_Play_Games][/geekurl]
+[b]:geek_star: The proverbial rabbit hole if you haven't found what you were looking for yet [thread=848512][/thread][/b]
 ========================================
 [b]Engage with the PnP community online:[/b][b][b][/b][/b]
 :d10-1: Reddit:  [url=https://www.reddit.com/r/printandplay/]r/printandplay Subreddit[/url]
