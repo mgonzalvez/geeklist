@@ -104,3 +104,11 @@ The source of truth is `data/Crafting_Geeklist_Header_Text_Template_updated_2026
 1. Update the static lines in `generateHeader()` in `app.js` to match
 2. Update `formatForPreview()` if new tag types are introduced
 3. Update the `GUEST_HOSTS` array in `app.js` if the host roster changes
+
+## Registry & provenance rule (portfolio-wide)
+
+Personal project — completely separate from Apple work.
+
+- `.npmrc` pins `registry=https://registry.npmjs.org`. Never let Apple's internal npm mirror (`npm.apple.com`, `artifacts.apple.com/artifactory/...`) end up in `package-lock.json`; GitHub Actions can't reach it and CI fails with `ENOTFOUND`.
+- Audit before pushing: `../scripts/check-registry.sh` (add `--fix` to normalize).
+- No work credentials, internal hostnames, proprietary assets, or confidential material in this repo.
