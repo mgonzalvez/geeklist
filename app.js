@@ -3,23 +3,10 @@
    Application Logic
    =========================== */
 
-// Guest hosts data: remainder of 2026 + full 2027 slate
-const GUEST_HOSTS = [
-    { month: "November",  year: 2026, user: "DaddyDosDeuce", theme: "Culture and History" },
-    { month: "December",  year: 2026, user: "jamierufe",   theme: "TBD" },
-    { month: "January",   year: 2027, user: "", theme: "" },
-    { month: "February",  year: 2027, user: "", theme: "" },
-    { month: "March",     year: 2027, user: "", theme: "" },
-    { month: "April",     year: 2027, user: "", theme: "" },
-    { month: "May",       year: 2027, user: "", theme: "" },
-    { month: "June",       year: 2027, user: "", theme: "" },
-    { month: "July",      year: 2027, user: "ecoboardgeek123", theme: "Rethemes" },
-    { month: "August",    year: 2027, user: "", theme: "" },
-    { month: "September", year: 2027, user: "", theme: "" },
-    { month: "October",   year: 2027, user: "ecoboardgeek123", theme: "Artober" },
-    { month: "November",  year: 2027, user: "", theme: "" },
-    { month: "December",  year: 2027, user: "", theme: "" },
-];
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+// Guest host roster is loaded from data/hosts.json (single source of truth).
+let GUEST_HOSTS = [];
 
 const BGG_COLOR_HEX = "#ffdd00";
 const BGG_COLOR_HEX2 = "#e0b61f";
@@ -99,7 +86,6 @@ function generateHeader(data) {
 }
 
 function collectFormData() {
-    const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const month = document.getElementById("month").value;
     const lastMonth = document.getElementById("lastMonth").value;
     const manualYear = parseInt(document.getElementById("year").value, 10);
@@ -378,12 +364,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        const valid = missing.length === 0;
+        const badIds = ["pnpGamesOnYourTableId", "lastCraftingGeeklistId"].filter(id => {
+            const value = document.getElementById(id).value.trim();
+            return value && !/^\d+$/.test(value);
+        });
+        badIds.forEach(id => document.getElementById(id).classList.toggle("invalid", showErrors));
+
+        const valid = missing.length === 0 && badIds.length === 0;
         formProgressCount.textContent = `${completed} of ${fields.length}`;
         formProgressBar.style.width = `${(completed / fields.length) * 100}%`;
 
         if (!valid && showErrors) {
-            validationError.textContent = "Please fill in all required fields: " + missing.join(", ");
+            const messages = [];
+            if (missing.length) messages.push("Please fill in all required fields: " + missing.join(", "));
+            if (badIds.length) messages.push("Geeklist IDs must be numbers only — paste just the numeric ID, not the full URL.");
+            validationError.textContent = messages.join(" ");
             validationError.classList.remove("hidden");
         } else {
             validationError.classList.add("hidden");
@@ -431,14 +426,85 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", () => switchTab(btn.dataset.tab));
     });
 
-    // Copy to clipboard
+    // Pre-fill month fields and known roster details
+    const now = new Date();
+    document.getElementById("month").value = MONTHS[now.getMonth()];
+    document.getElementById("lastMonth").value = MONTHS[(now.getMonth() + 11) % 12];
+
+    const themeInput = document.getElementById("theme");
+    themeInput.addEventListener("input", () => { themeInput.dataset.autoFilled = ""; });
+
+    function applyRosterHints() {
+        const month = document.getElementById("month").value;
+        if (!month) return;
+        document.getElementById("lastMonth").value = MONTHS[(MONTHS.indexOf(month) + 11) % 12];
+
+        const manualYear = parseInt(document.getElementById("year").value, 10);
+        const year = Number.isFinite(manualYear) && manualYear > 0 ? manualYear : new Date().getFullYear();
+        const entry = GUEST_HOSTS.find(h => h.month === month && h.year === year);
+        const knownTheme = entry && entry.theme && entry.theme !== "TBD" ? entry.theme : "";
+
+        if (themeInput.dataset.autoFilled === "true" || !themeInput.value.trim()) {
+            themeInput.value = knownTheme;
+            themeInput.dataset.autoFilled = knownTheme ? "true" : "";
+        }
+        validateForm(false);
+    }
+
+    document.getElementById("month").addEventListener("change", applyRosterHints);
+    document.getElementById("year").addEventListener("change", applyRosterHints);
+
+    // Copy to clipboard (with fallback and screen-reader feedback)
     document.getElementById("copyBtn").addEventListener("click", () => {
         const rawOutput = document.getElementById("rawOutput").textContent;
-        navigator.clipboard.writeText(rawOutput).then(() => {
-            const label = document.getElementById("copyBtnLabel");
+        const label = document.getElementById("copyBtnLabel");
+        const feedback = document.getElementById("copyFeedback");
+
+        const announce = (message, isError = false) => {
+            if (!feedback) return;
+            feedback.textContent = message;
+            feedback.classList.toggle("error", isError);
+            setTimeout(() => { feedback.textContent = ""; }, 5000);
+        };
+
+        const succeed = () => {
             label.textContent = "Copied!";
+            announce("Header code copied to clipboard.");
             setTimeout(() => { label.textContent = "Copy code"; }, 2000);
-        });
+        };
+
+        function fallbackCopy() {
+            try {
+                const textarea = document.createElement("textarea");
+                textarea.value = rawOutput;
+                textarea.style.position = "fixed";
+                textarea.style.opacity = "0";
+                document.body.appendChild(textarea);
+                textarea.select();
+                const ok = document.execCommand("copy");
+                document.body.removeChild(textarea);
+                if (ok) {
+                    succeed();
+                } else {
+                    throw new Error("execCommand copy failed");
+                }
+            } catch (error) {
+                // Last resort: select the raw output so the user can copy manually.
+                const rawBox = document.getElementById("rawOutput");
+                const range = document.createRange();
+                range.selectNode(rawBox);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                announce("Automatic copy failed — the header text is selected. Press Ctrl/Cmd+C to copy it.", true);
+            }
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(rawOutput).then(succeed).catch(fallbackCopy);
+        } else {
+            fallbackCopy();
+        }
     });
 
     // Download as .txt
@@ -457,7 +523,18 @@ document.addEventListener("DOMContentLoaded", () => {
         URL.revokeObjectURL(url);
     });
 
-    // Render guest hosts
-    renderGuestHosts();
+    // Render guest hosts (roster loaded from data/hosts.json)
+    async function loadGuestHosts() {
+        try {
+            const response = await fetch("data/hosts.json");
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            GUEST_HOSTS = await response.json();
+        } catch (error) {
+            console.warn("Could not load guest host roster:", error);
+            GUEST_HOSTS = [];
+        }
+        renderGuestHosts();
+    }
+    loadGuestHosts();
     validateForm(false);
 });

@@ -8,12 +8,12 @@ This tool helps monthly guest hosts generate the BGG-formatted header text for e
 
 ## Features
 
-- **Header Generator** — Fill in a form with monthly variables and export ready-to-paste BGG code
+- **Header Generator** — Fill in a form with monthly variables and export ready-to-paste BGG code (month and previous month pre-fill automatically; known themes from the roster pre-fill too)
 - **Formatted Preview** — See how the header will render with clickable links
-- **Copy to Clipboard** — One-click copy of the generated BGG code
+- **Copy to Clipboard** — One-click copy of the generated BGG code, with a fallback for browsers where clipboard access fails
 - **Download .txt** — Export the header as a text file
 - **How-To Instructions** — Step-by-step guide for creating and publishing a geeklist
-- **Guest Host Roster** — Full 2026 lineup showing filled, pending, and empty slots
+- **Guest Host Roster** — 2027 slate with open slots, plus a 2026 wrap-up
 - **Header Readiness** — Live progress shows how many required details are complete
 - **Dark/light themes** — Follows the system preference, persists across the related PnP sites, and can be toggled manually
 - **Related Sites** — Shared navigation to the other PnP tools
@@ -27,7 +27,9 @@ This tool helps monthly guest hosts generate the BGG-formatted header text for e
 | `index.html` | Main page structure with all three sections |
 | `styles.css` | Dark/light theme styling and responsive layout |
 | `app.js` | Form validation, header generation, preview rendering, guest host roster |
-| `data/` | Reference documents (template, instructions, host list) |
+| `data/hosts.json` | Guest host roster — single source of truth |
+| `data/` | Reference documents (template, instructions, BGG post draft) |
+| `tests/header.test.mjs` | Smoke test for the header generator (also runs in CI) |
 
 ## Form Fields (all required)
 
@@ -77,6 +79,14 @@ Or with Node:
 ```bash
 npx serve ~/websites/pnp_geeklist
 ```
+
+## Testing
+
+```bash
+node tests/header.test.mjs
+```
+
+The smoke test verifies that static links in `generateHeader()` still match the template file and that dynamic fields interpolate correctly. It runs automatically in the GitHub Actions deploy workflow.
 
 ## Template Reference
 

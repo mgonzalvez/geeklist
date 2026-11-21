@@ -17,7 +17,10 @@ pnp_geeklist/
 ├── data/
 │   ├── Crafting_Geeklist_Header_Text_Template_updated_2026.txt
 │   ├── How_To_Create_Crafting_Geeklist_Aid.txt
-│   └── guest_hosts.txt
+│   ├── hosts.json                # Guest host roster (single source of truth)
+│   └── guest_hosts_post_draft.txt # BGG-formatted post draft for publishing the lineup
+└── tests/
+    └── header.test.mjs           # Smoke test: static links match template + dynamic fields work
 ```
 
 ## Architecture
@@ -28,8 +31,8 @@ pnp_geeklist/
   - Form validation (all fields required, button disabled until valid)
   - Header generation from form data + hardcoded static content
   - BGG tag → HTML conversion for preview (`[b]`, `[i]`, `[size]`, `[color]`, `[url]`, `[geeklist]`, `[thread]`, `[uforum]`, `[blogpost]`, `[geekurl]`)
-  - Copy to clipboard and download .txt functionality
-  - Guest host roster rendering from `GUEST_HOSTS` array
+  - Copy to clipboard (with execCommand fallback and manual-select last resort) and download .txt functionality
+  - Guest host roster loaded from `data/hosts.json` and rendered (split into 2027 slate / 2026 wrap-up); the form pre-fills Month, Previous Month, and known Themes from the roster
 - `styles.css` — dark/light themes, responsive grid, form validation states
 
 ## Key Functions in app.js
@@ -43,7 +46,7 @@ pnp_geeklist/
 
 ## Guest Host Data
 
-The `GUEST_HOSTS` array in `app.js` contains the remaining 2026 months (November, December) plus the full 2027 slate (all 12 months). Entries with both `user` and `theme` render as "Filled", `user` only as "Pending", and empty entries as "Empty" slots listed under "Still looking for hosts". Update it when hosts change.
+The roster lives in `data/hosts.json` — the single source of truth. `app.js` fetches it at load time into the `GUEST_HOSTS` array (`month`, `year`, `user`, `theme` per entry). `data/guest_hosts_post_draft.txt` is a BGG-formatted draft for publishing the lineup on BGG; keep it in sync manually when the roster changes. Update `hosts.json` when hosts change.
 
 ## Form Fields (all required)
 
@@ -103,7 +106,15 @@ The source of truth is `data/Crafting_Geeklist_Header_Text_Template_updated_2026
 
 1. Update the static lines in `generateHeader()` in `app.js` to match
 2. Update `formatForPreview()` if new tag types are introduced
-3. Update the `GUEST_HOSTS` array in `app.js` if the host roster changes
+3. Update `data/hosts.json` if the host roster changes (and refresh `guest_hosts_post_draft.txt` if publishing the lineup on BGG)
+
+## Testing
+
+```bash
+node tests/header.test.mjs
+```
+
+The smoke test runs `app.js` in a sandboxed VM with a stub DOM and checks that (1) every static link token in the template file also appears in the generated header, (2) dynamic fields interpolate correctly, and (3) the preview converter handles core BGG tags. It also runs in the GitHub Actions deploy workflow before the Pages upload.
 
 ## Registry & provenance rule (portfolio-wide)
 

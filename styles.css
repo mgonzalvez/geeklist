@@ -845,6 +845,16 @@ html[data-theme="dark"] .theme-icon-sun {
     flex-wrap: wrap;
 }
 
+.copy-feedback {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.copy-feedback.error {
+    color: var(--danger);
+}
+
 .btn {
     min-height: 44px;
     padding: 9px 15px;
