@@ -3,20 +3,22 @@
    Application Logic
    =========================== */
 
-// Guest hosts data for 2026
+// Guest hosts data: remainder of 2026 + full 2027 slate
 const GUEST_HOSTS = [
-    { month: "January",   year: 2026, user: "b0ardgamer",  theme: "Planes, Trains, and Automobiles. And Spaceships." },
-    { month: "February",  year: 2026, user: "jamierufe",   theme: "PnP Accessories" },
-    { month: "March",     year: 2026, user: "leleyx",      theme: "March Madness" },
-    { month: "April",     year: 2026, user: "hammerquill", theme: "Try Something New" },
-    { month: "May",       year: 2026, user: "awakener76",  theme: "Shrinkification" },
-    { month: "June",      year: 2026, user: "DrHenryArmitage", theme: "Summer Fun" },
-    { month: "July",      year: 2026, user: "ecoboardgeek123", theme: "Rethemes" },
-    { month: "August",    year: 2026, user: "Gamecreature", theme: "Over The Top!" },
-    { month: "September", year: 2026, user: "Stwert",      theme: "A Return" },
-    { month: "October",   year: 2026, user: "ecoboardgeek123", theme: "Artwork" },
     { month: "November",  year: 2026, user: "DaddyDosDeuce", theme: "Culture and History" },
     { month: "December",  year: 2026, user: "jamierufe",   theme: "TBD" },
+    { month: "January",   year: 2027, user: "", theme: "" },
+    { month: "February",  year: 2027, user: "", theme: "" },
+    { month: "March",     year: 2027, user: "", theme: "" },
+    { month: "April",     year: 2027, user: "", theme: "" },
+    { month: "May",       year: 2027, user: "", theme: "" },
+    { month: "June",       year: 2027, user: "", theme: "" },
+    { month: "July",      year: 2027, user: "ecoboardgeek123", theme: "Rethemes" },
+    { month: "August",    year: 2027, user: "", theme: "" },
+    { month: "September", year: 2027, user: "", theme: "" },
+    { month: "October",   year: 2027, user: "ecoboardgeek123", theme: "Artober" },
+    { month: "November",  year: 2027, user: "", theme: "" },
+    { month: "December",  year: 2027, user: "", theme: "" },
 ];
 
 const BGG_COLOR_HEX = "#ffdd00";

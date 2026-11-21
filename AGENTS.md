@@ -17,7 +17,7 @@ pnp_geeklist/
 ├── data/
 │   ├── Crafting_Geeklist_Header_Text_Template_updated_2026.txt
 │   ├── How_To_Create_Crafting_Geeklist_Aid.txt
-│   └── 2026 guest hosts
+│   └── guest_hosts.txt
 ```
 
 ## Architecture
@@ -43,7 +43,7 @@ pnp_geeklist/
 
 ## Guest Host Data
 
-The `GUEST_HOSTS` array in `app.js` contains all 12 months for 2026. Update it when hosts change.
+The `GUEST_HOSTS` array in `app.js` contains the remaining 2026 months (November, December) plus the full 2027 slate (all 12 months). Entries with both `user` and `theme` render as "Filled", `user` only as "Pending", and empty entries as "Empty" slots listed under "Still looking for hosts". Update it when hosts change.
 
 ## Form Fields (all required)
 
