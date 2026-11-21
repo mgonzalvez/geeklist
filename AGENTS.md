@@ -34,8 +34,8 @@ pnp_geeklist/
 
 ## Key Functions in app.js
 
-- `generateHeader(data)` — Builds the full BGG header text from form data; year/lastYear derived from `new Date().getFullYear()`
-- `collectFormData()` — Reads all form fields; year/lastYear auto-set from `new Date().getFullYear()`
+- `generateHeader(data)` — Builds the full BGG header text from form data; year comes from the optional Year field (defaults to current year), lastYear rolls back a year when the recap crosses a year boundary
+- `collectFormData()` — Reads all form fields; resolves year (manual override or current year) and computes lastYear
 - `renderOutput(data)` — Displays raw code and formatted preview
 - `formatForPreview(bggCode)` — Converts BGG tags to HTML for preview
 - `validateForm()` — Checks all fields, enables/disables export button
@@ -57,7 +57,7 @@ The `GUEST_HOSTS` array in `app.js` contains the remaining 2026 months (November
 | Entry Count | Number of entries last month contributed |
 | Last Month's Crafting Geeklist ID | Geeklist ID of last month's crafting geeklist |
 
-Note: Year and Last Year are auto-derived from `new Date().getFullYear()` — no user input needed.
+Note: Year defaults to `new Date().getFullYear()` but can be overridden with an optional Year field (useful for preparing January's header in December). Last Year automatically rolls back to the previous year when the recap crosses a year boundary (e.g. January header recapping December).
 
 ## Static Content
 

@@ -41,7 +41,7 @@ This tool helps monthly guest hosts generate the BGG-formatted header text for e
 | Entry Count | Number of entries last month contributed |
 | Last Month's Crafting Geeklist ID | Geeklist ID of last month's crafting geeklist |
 
-Note: Year and Last Year are auto-derived from `new Date().getFullYear()` — no user input needed.
+Note: Year defaults to the current year and can be overridden with an optional Year field (useful when preparing a header in advance). Last Year automatically rolls back when the recap crosses a year boundary (e.g. January's header recapping December).
 
 ## Static Content (hardcoded from template)
 

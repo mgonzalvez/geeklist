@@ -440,6 +440,15 @@ html[data-theme="dark"] .theme-icon-sun {
     box-shadow: var(--shadow-control);
 }
 
+.summary-item a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.summary-item a:hover {
+    text-decoration: underline;
+}
+
 .stat {
     display: block;
     margin-bottom: 5px;
@@ -1396,6 +1405,31 @@ html[data-theme="light"] .preview-link {
 .host-card.empty .status-badge {
     color: var(--danger);
     background: var(--danger-soft);
+}
+
+.guest-hosts-banner a {
+    color: var(--accent);
+    font-weight: 620;
+    text-decoration: none;
+}
+
+.guest-hosts-banner a:hover {
+    text-decoration: underline;
+}
+
+.roster-year-group {
+    margin-top: 20px;
+}
+
+.roster-year-group h3 {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+}
+
+.roster-year-group.roster-wrapup h3 {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .missing-hosts {

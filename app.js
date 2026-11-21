@@ -99,14 +99,25 @@ function generateHeader(data) {
 }
 
 function collectFormData() {
+    const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const month = document.getElementById("month").value;
+    const lastMonth = document.getElementById("lastMonth").value;
+    const manualYear = parseInt(document.getElementById("year").value, 10);
+    const year = Number.isFinite(manualYear) && manualYear > 0 ? manualYear : new Date().getFullYear();
+    // When the recap crosses a year boundary (e.g. January's header recapping December),
+    // last month's geeklist happened in the previous calendar year.
+    const monthIndex = MONTHS.indexOf(month);
+    const lastMonthIndex = MONTHS.indexOf(lastMonth);
+    const lastYear = monthIndex >= 0 && lastMonthIndex > monthIndex ? year - 1 : year;
+
     return {
-        month: document.getElementById("month").value,
-        year: new Date().getFullYear(),
+        month,
+        year,
         theme: document.getElementById("theme").value,
         themeDescription: document.getElementById("themeDescription").value,
         pnpGamesOnYourTableId: document.getElementById("pnpGamesOnYourTableId").value,
-        lastMonth: document.getElementById("lastMonth").value,
-        lastYear: new Date().getFullYear(),
+        lastMonth,
+        lastYear,
         entryCount: document.getElementById("entryCount").value,
         lastCraftingGeeklistId: document.getElementById("lastCraftingGeeklistId").value,
     };
@@ -204,16 +215,18 @@ function switchTab(tabName) {
 // ===========================
 
 function renderGuestHosts() {
-    const grid = document.getElementById("hostGrid");
+    const grid2027 = document.getElementById("hostGrid");
+    const gridWrapup = document.getElementById("hostGridWrapup");
     const missingList = document.getElementById("missingHostList");
-    grid.innerHTML = "";
+    grid2027.innerHTML = "";
+    gridWrapup.innerHTML = "";
     missingList.innerHTML = "";
 
-    GUEST_HOSTS.forEach((host, index) => {
+    const buildCard = (host) => {
         const card = document.createElement("div");
         card.className = "host-card";
 
-        if (host.user && host.theme) {
+        if (host.user && host.theme && host.theme !== "TBD") {
             card.classList.add("filled");
             card.innerHTML = `
                 <span class="status-badge">✓ Filled</span>
@@ -232,17 +245,26 @@ function renderGuestHosts() {
         } else {
             card.classList.add("empty");
             card.innerHTML = `
-                <span class="status-badge">Empty</span>
+                <span class="status-badge">Open</span>
                 <div class="month-year">${host.month} ${host.year}</div>
                 <div class="host-name">No host assigned</div>
                 <div class="host-theme"><span>Theme</span>TBD</div>
             `;
-            const li = document.createElement("li");
-            li.textContent = `${host.month} ${host.year}`;
-            missingList.appendChild(li);
         }
+        return card;
+    };
 
-        grid.appendChild(card);
+    GUEST_HOSTS.forEach((host) => {
+        if (host.year >= 2027) {
+            grid2027.appendChild(buildCard(host));
+            if (!host.user) {
+                const li = document.createElement("li");
+                li.textContent = `${host.month} ${host.year}`;
+                missingList.appendChild(li);
+            }
+        } else {
+            gridWrapup.appendChild(buildCard(host));
+        }
     });
 
     // Hide the "Still Looking For Hosts" section if no missing slots
@@ -257,6 +279,10 @@ function renderGuestHosts() {
 // ===========================
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Footer year
+    const footerYear = document.getElementById("footerYear");
+    if (footerYear) footerYear.textContent = new Date().getFullYear();
+
     // Theme toggle
     const themeToggle = document.getElementById("themeToggle");
     const themeColorMeta = document.getElementById("themeColorMeta");

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f4f7fb" id="themeColorMeta">
+    <meta name="description" content="Generate the BGG-formatted header text for the monthly Print & Play Crafting Geeklist in minutes. Fill in seven fields, preview the rendered header, and copy or download ready-to-paste BoardGameGeek code.">
+    <meta property="og:title" content="PnP Crafting Geeklist Generator">
+    <meta property="og:description" content="Turn a few monthly details into polished, ready-to-paste BoardGameGeek geeklist header code.">
+    <meta property="og:type" content="website">
     <title>PnP Crafting Geeklist Generator</title>
     <script>
         (() => {
@@ -100,7 +104,7 @@
                 </div>
                 <div class="summary-item">
                     <span class="stat">Community</span>
-                    <strong class="stat-value">2027 host lineup · volunteer now</strong>
+                    <strong class="stat-value">2027 host lineup · <a href="#guest-hosts">volunteer now</a></strong>
                 </div>
             </div>
         </section>
@@ -137,7 +141,7 @@
                         <span class="step-number">1</span>
                         <div>
                             <h3>Add this month’s details</h3>
-                            <p>The current year is added automatically.</p>
+                            <p>The year is filled in automatically—set it only if you are preparing a header ahead of time.</p>
                         </div>
                     </div>
 
@@ -184,6 +188,10 @@
                                 <label for="pnpGamesOnYourTableId">PnP Games On Your Table Geeklist ID <span class="help-icon" tabindex="0" data-tooltip="Use the number at the end of this month’s PnP Games On Your Table URL.">i</span></label>
                                 <input type="number" id="pnpGamesOnYourTableId" placeholder="e.g. 123456" min="1" required>
                                 <small>Just the numeric ID—not the full URL.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="year">Year <span class="help-icon" tabindex="0" data-tooltip="Leave blank to use the current year. Set it if you are preparing next year's first header.">i</span></label>
+                                <input type="number" id="year" placeholder="e.g. 2027" min="2020" max="2035">
                             </div>
                         </div>
                     </div>
@@ -403,17 +411,27 @@
                 </span>
                 <div>
                     <strong>The 2027 slate is taking shape.</strong>
-                    <p>Quentin Jones (@ecoboardgeek123) has volunteered to kick off 2027 with Rethemes in July and Artober in October. The other 2027 months are open — get in touch with @DrHenryArmitage to claim a slot.</p>
+                    <p>Quentin Jones (@ecoboardgeek123) has volunteered to kick off 2027 with Rethemes in July and Artober in October. The other 2027 months are open — <a href="mailto:help@pnpfinder.com">email help@pnpfinder.com</a> or <a href="https://boardgamegeek.com/geekmail?target=DrHenryArmitage" target="_blank" rel="noopener noreferrer">geekmail @DrHenryArmitage</a> to claim a slot.</p>
                 </div>
             </div>
 
-            <div class="host-grid" id="hostGrid">
-                <!-- Populated by JS -->
+            <div class="roster-year-group">
+                <h3>2027 slate</h3>
+                <div class="host-grid" id="hostGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="roster-year-group roster-wrapup">
+                <h3>2026 wrap-up</h3>
+                <div class="host-grid" id="hostGridWrapup">
+                    <!-- Populated by JS -->
+                </div>
             </div>
 
             <div class="missing-hosts">
                 <h3>Still looking for hosts</h3>
-                <p>Interested in an open slot? <a href="https://boardgamegeek.com/geekmail?target=DrHenryArmitage" target="_blank" rel="noopener noreferrer">Send geekmail to @DrHenryArmitage</a>.</p>
+                <p>Interested in an open 2027 slot? <a href="mailto:help@pnpfinder.com">Email help@pnpfinder.com</a> or <a href="https://boardgamegeek.com/geekmail?target=DrHenryArmitage" target="_blank" rel="noopener noreferrer">send geekmail to @DrHenryArmitage</a>.</p>
                 <ul id="missingHostList">
                     <!-- Populated by JS -->
                 </ul>
@@ -423,7 +441,7 @@
 
     <footer class="footer">
         <p>Geeklist Generator — thoughtfully made for print &amp; play crafters.</p>
-        <p>For the Print &amp; Play Crafting Geeklist on BoardGameGeek · 2026</p>
+        <p>For the Print &amp; Play Crafting Geeklist on BoardGameGeek · <span id="footerYear">2026</span></p>
     </footer>
 
     <script src="app.js"></script>
